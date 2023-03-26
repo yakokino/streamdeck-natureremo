@@ -23,26 +23,22 @@ function connected(jsn) {
 
 class Action {
 
-    constructor(name, age) {
+    constructor() {
         this.type = 'com.yakokino.natureremo.action1';
         this.cache = {};
     }
 
     onDidReceiveSettings(jsn) {
-        //console.log("onDidReceiveSettings", jsn);
+        console.log("onDidReceiveSettings", jsn);
         const settings = jsn.payload.settings;
         const clock = this.cache[jsn.context];
         if (!settings || !clock) return;
 
         if (settings?.clock_index) {
-            if (clock) {
-                this.cache[jsn.context] = clock;
-            }
+            this.cache[jsn.context] = clock;
         }
-        if (settings.hasOwnProperty('clock_type')) { /* if there's no clock-definitions, so simply do nothing */
-            if (clock) {
-                clock.setClockType(settings.clock_type);
-            }
+        if (settings?.clock_type) {
+            clock.setClockType(settings.clock_type);
         }
     }
 
@@ -58,7 +54,7 @@ class Action {
     }
 
     onWillDisappear(jsn) {
-        let found = this.cache[jsn.context];
+        const found = this.cache[jsn.context];
         if (found) {
             // remove the clock from the cache
             found.destroyClock();
@@ -87,7 +83,7 @@ class AnalogClock {
         this.demo = false;
         this.count = Math.floor(Math.random() * Math.floor(10));
         this.type = 'analog';
-        
+
         this.createClock();
     }
 
@@ -106,7 +102,6 @@ class AnalogClock {
     }
 
     toggleClock() {
-
         if (this.clockTimer === 0) {
             this.clockTimer = setInterval((sx) => {
                 this.drawClock();
@@ -137,7 +132,7 @@ class AnalogClock {
     }
 
     destroyClock() {
-        if (clockTimer !== 0) {
+        if (this.clockTimer !== 0) {
             window.clearInterval(clockTimer);
             this.clockTimer = 0;
         }
