@@ -1,9 +1,9 @@
 {
-  "Description": "いつでも時間厳守。", 
-  "Name": "アナログ時計", 
-  "com.elgato.analogclock.action": {
-    "Name": "アナログ時計", 
-    "Tooltip": "ステキなアナログ時計を表示"
+  "Description": "", 
+  "Name": "Nature Remo E", 
+  "com.yakokino.natureremo.action1": {
+    "Name": "消費電力", 
+    "Tooltip": "現在の消費電力をNature Remo Eから取得して表示"
   },
   
   "Localization": {
